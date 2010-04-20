@@ -21,7 +21,6 @@ local MyContainer = Simplicity:GetContainerPrototype()
 
 -- OnContentsChanged executes every time the layout needs to be changed
 function MyContainer:OnContentsChanged()
-	print"layout-Update"
 
 	-- Tell cargBags to sort our buttons based on the slotID
 	-- you can overwrite this with your own function, see cargBags/mixins/sort.lua
