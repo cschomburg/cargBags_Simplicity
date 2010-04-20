@@ -1,11 +1,23 @@
 --[[
-	This file serves as the core of your own cargBags implementation.
-	From here you can control container-spawning and similar things.
+	Class: Implementation
+		Serves as the core for your cargBags layout
 
-	The implementation is a button with the dimensions of UIParent and
-	it will be opened and closed by cargBags. It is therefore recommended
-	that you parent all your containers to this frame, so that they are shown
-	automatically.
+	attributes:
+		.contByID - indexed table of all containers
+		.contByName - containers by name
+		.buttons - bagSlot-indexed table of all buttons
+		.isOpen - boolean whether the implementation is currently open
+		.atBank - boolean whether the user currently uses the bank
+	functions:
+		container = :GetContainer(name) - fetches a container by its name (wrapper for .contByName)
+		protoContainer = :GetContainerPrototype() - fetches the Container prototype (basis for all Containers)
+		protoButton = :GetItemButtonPrototype() - fetches the ItemButton prototype (basis for all ItemButtons)
+		:RegisterBlizzard() - Overwrite Blizzard functions for toggling bags
+		:GetButton(bagID, slotID) - Gets a button from the storage
+	callbacks:
+		:OnInit(...) - called when the implementation is opened the first time
+		:OnOpen() - called when it is shown
+		:OnClose() - called when it is hidden
 ]]
 
 local Simplicity = cargBags:NewImplementation("Simplicity")	-- Let the magic begin!

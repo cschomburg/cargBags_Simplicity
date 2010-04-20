@@ -1,12 +1,27 @@
+--[[
+	Class: Container
+		Serves as a base for all containers/bags
+
+	attributes:
+		.implementation - The parent implementation
+		.buttons - indexed table of all contained buttons
+	callbacks:
+		:OnCreate(...) - called when a container is created, arguments passed from :New(name, ...)
+		:OnContentsChanged() - called when a button is added or removed, mostly used to update the layout
+		:OnBagUpdate(bagID, slotID) - called every BAG_UPDATE
+		:OnButtonAdd(button) - called when a button is added to this container
+		:OnButtonRemove(button) - called when a button is removed from this container
+]]
+
 -- Fetch our implementation
 local Simplicity = cargBags:GetImplementation("Simplicity")
 
 -- Fetch our container prototype that serves as a basis for all our containers/bags
 local MyContainer = Simplicity:GetContainerPrototype()
 
--- OnUpdate currently executes every time the layout needs to be changed
--- NOTE: This may be splitted into two functions, one for the layout-changes and one for every update
-function MyContainer:OnUpdate()
+-- OnContentsChanged executes every time the layout needs to be changed
+function MyContainer:OnContentsChanged()
+	print"layout-Update"
 
 	-- Tell cargBags to sort our buttons based on the slotID
 	-- you can overwrite this with your own function, see cargBags/mixins/sort.lua
@@ -20,7 +35,9 @@ function MyContainer:OnUpdate()
 
 	-- Update our size, reserve space for infobar at top
 	self:SetSize(width + 20, height + 46)
+end
 
+function MyContainer:OnBagUpdate(bagID, slotID)
 	-- Temporary placement for the space-updating until plugins are integrated
 	local free, total = 0, 0
 	for bagID=0, 4 do
