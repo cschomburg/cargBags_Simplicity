@@ -1,3 +1,5 @@
+--NOTE: move this into own plugin
+
 local Simplicity = cargBags:GetImplementation("Simplicity")
 
 local sText = {}
