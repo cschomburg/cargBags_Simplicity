@@ -93,12 +93,17 @@ function MyContainer:OnCreate(settings)
 	space:SetText("99/99 free")
 	self.Space = space
 
-	local money = CreateFrame("Frame", "SimplicityMoney", infoFrame, "SmallMoneyFrameTemplate")
-	money:SetPoint("RIGHT", infoFrame, "RIGHT")
+	-- Plugin: Money
+	-- Creates a standard Money-display
+	-- We parent it to the infoFrame, because of the toggleable search bar below!
+	local money = self:SpawnPlugin("Money")
+	money:SetParent(infoFrame)
+	money:SetPoint("RIGHT")
 
-
-	-- Defined in search.lua
-	Simplicity:SetupSearch(self, infoFrame)
+	-- Plugin: SearchBar
+	-- If we specify a frame as an optional arg #2, then this frame
+	-- shows the search on click at its own place
+	local search = self:SpawnPlugin("SearchBar", infoFrame)
 
 	return self
 end
