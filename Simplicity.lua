@@ -46,6 +46,7 @@ function Simplicity:OnInit()
 	local main = MyContainer:New("Main", {
 			Columns = 8,
 			Scale = 1,
+			Bags = "backpack+bags",
 		})
 		main:SetFilter(onlyBags, true) -- Take only items from the main bags
 		main:SetPoint("RIGHT", -5, 0) -- Place at right side of UI
@@ -54,6 +55,7 @@ function Simplicity:OnInit()
 	local bank = MyContainer:New("Bank", {
 			Columns = 12,
 			Scale = 1,
+			Bags = "bankframe+bank",
 		})
 		bank:SetFilter(onlyBank, true) -- Take only items from the bank frame
 		bank:SetPoint("LEFT", 5, 0) -- Place at left side of UI

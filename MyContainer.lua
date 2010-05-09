@@ -36,18 +36,8 @@ function MyContainer:OnContentsChanged()
 	self:SetSize(width + 20, height + 46)
 end
 
-function MyContainer:OnBagUpdate(bagID, slotID)
-	-- Temporary placement for the space-updating until plugins are integrated
-	local free, total = 0, 0
-	for bagID=0, 4 do
-		total = total + GetContainerNumSlots(bagID)
-		free = free + GetContainerNumFreeSlots(bagID)
-	end
-	self.Space:SetFormattedText("%d/%d free", free, total)
-end
-
 -- OnCreate is called every time a new container is created (you guessed that, right?)
--- The 'settings'-variable is solely passed from the :New()-function and thus independent from the cargBags-core
+-- The 'settings'-variable is solely passed from your :New()-function and thus independent from the cargBags-core
 function MyContainer:OnCreate(settings)
 	self.Settings = settings
 
@@ -80,30 +70,31 @@ function MyContainer:OnCreate(settings)
 	settings.Columns = settings.Columns or 8
 	self:SetScale(settings.Scale or 1)
 
-	-- The plugin code here is all temporary, until I've implemented the plugin-system into cB 2.0
+	-- Our infoFrame serves as a basic bar for information (yeah, right ...)
+	-- It will toggle the searchbar on click, see below
 
 	local infoFrame = CreateFrame("Button", nil, self)
 	infoFrame:SetPoint("TOPLEFT", 10, -3)
 	infoFrame:SetPoint("TOPRIGHT", -10, -3)
 	infoFrame:SetHeight(32)
 
-	local space = infoFrame:CreateFontString(nil, "OVERLAY")
+	-- Plugin: SpaceText
+	-- Creates a space-fontstring - it's an extension of :SpawnPlugin("Space", frame, bags) which transforms a frame into a space-updater
+	-- You can overwrite the update-routine with :UpdateSpace(free, max) or use the callback :OnUpdateSpace(free, max)
+	-- The settings.Bags thing just holds the bags which are included in the count, see Simplicity.lua
+	local space = self:SpawnPlugin("SpaceText", "[free]/[max] free", settings.Bags, infoFrame)
 	space:SetFont("Interface\\AddOns\\cargBags_Simplicity\\media\\cambriai.ttf", 16)
 	space:SetPoint("LEFT", infoFrame, "LEFT")
-	space:SetText("99/99 free")
-	self.Space = space
 
 	-- Plugin: Money
 	-- Creates a standard Money-display
 	-- We parent it to the infoFrame, because of the toggleable search bar below!
-	local money = self:SpawnPlugin("Money")
-	money:SetParent(infoFrame)
-	money:SetPoint("RIGHT")
+	-- Making it short in one line, because we don't need more options
+	-- By the way, cargBags stores all instances of a plugin in the container by their name, so it's also in self.Money
+	self:SpawnPlugin("Money", infoFrame):SetPoint("RIGHT")
 
 	-- Plugin: SearchBar
 	-- If we specify a frame as an optional arg #2, then this frame
 	-- shows the search on click at its own place
 	local search = self:SpawnPlugin("SearchBar", infoFrame)
-
-	return self
 end
