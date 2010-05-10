@@ -38,7 +38,10 @@ function Simplicity:OnInit()
 	local hideJunk =		function(item) return not item.rarity or item.rarity > 0 end
 	local hideEmpty =		function(item) return item.texture ~= nil end
 
-	local MyContainer = Simplicity:GetContainerPrototype() -- This fetches our container prototype, it is styled in MyContainer.lua
+	-- This fetches our container prototype, it is styled in MyContainer.lua
+	-- You can also create multiple prototypes by providing a name as arg #1, (no name actually means "Default")
+	-- e.g. one for Bank/Bags with plugins and one simple one for additional bags/keyring
+	local MyContainer = Simplicity:GetContainerPrototype()
 
 	-- The settings-table passed in the :New() function is defined by the layout and fully optional, see MyContainer.lua
 

@@ -38,7 +38,7 @@ end
 
 -- OnCreate is called every time a new container is created (you guessed that, right?)
 -- The 'settings'-variable is solely passed from your :New()-function and thus independent from the cargBags-core
-function MyContainer:OnCreate(settings)
+function MyContainer:OnCreate(name, settings)
 	self.Settings = settings
 
 	self:EnableMouse(true)
