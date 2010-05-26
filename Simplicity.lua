@@ -68,7 +68,7 @@ end
 -- Main bag will be toggled automatically on opening,
 -- but the bank frame needs special treatment
 function Simplicity:OnOpen()
-	if(self.atBank) then
+	if(self:AtBank()) then
 		self:GetContainer("Bank"):Show()
 	end
 end
