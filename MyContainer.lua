@@ -86,12 +86,20 @@ function MyContainer:OnCreate(name, settings)
 	space:SetFont("Interface\\AddOns\\cargBags_Simplicity\\media\\cambriai.ttf", 16)
 	space:SetPoint("LEFT", infoFrame, "LEFT")
 
+	-- Plugin: TagDisplay
+	-- Creates a font string which is fomatted according to different tags
+	-- Possible: [currencies], [currency:id] [money], [item:name], [item:id], [shards], [ammo], [space:free/max/used]
+	-- You can provide your own tags in tagDisplay.tags[tagName] = function(self, arg1) end
+	local tagDisplay = self:SpawnPlugin("TagDisplay", "[currencies] [ammo] [money]", infoFrame, nil, "NumberFontNormal")
+	tagDisplay:SetPoint("RIGHT", infoFrame, "RIGHT", -10, 0)
+
 	-- Plugin: Money
 	-- Creates a standard Money-display
+	-- (deprecated in favor of the tagDisplay)
 	-- We parent it to the infoFrame, because of the toggleable search bar below!
 	-- Making it short in one line, because we don't need more options
 	-- By the way, cargBags stores all instances of a plugin in the container by their name, so it's also in self.Money
-	self:SpawnPlugin("Money", infoFrame):SetPoint("RIGHT")
+	-- self:SpawnPlugin("Money", infoFrame):SetPoint("RIGHT")
 
 	-- Plugin: SearchBar
 	-- If we specify a frame as an optional arg #2, then this frame

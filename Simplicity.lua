@@ -6,18 +6,19 @@
 		.contByID - indexed table of all containers
 		.contByName - containers by name
 		.buttons - bagSlot-indexed table of all buttons
-		.isOpen - boolean whether the implementation is currently open
-		.atBank - boolean whether the user currently uses the bank
 	functions:
 		container = :GetContainer(name) - fetches a container by its name (wrapper for .contByName)
-		protoContainer = :GetContainerPrototype() - fetches the Container prototype (basis for all Containers)
+		protoContainer = :GetContainerPrototype(name) - fetches a Container prototype by name or the default one (basis for all Containers)
 		protoButton = :GetItemButtonPrototype() - fetches the ItemButton prototype (basis for all ItemButtons)
 		:RegisterBlizzard() - Overwrite Blizzard functions for toggling bags
 		:GetButton(bagID, slotID) - Gets a button from the storage
+		:AtBank() - Returns whether the bank data is available
 	callbacks:
 		:OnInit(...) - called when the implementation is opened the first time
 		:OnOpen() - called when it is shown
 		:OnClose() - called when it is hidden
+		:OnBankOpened() - called when the user visits a bank
+		:OnBankClosed() - called when the user finished visiting the bank
 ]]
 
 local Simplicity = cargBags:NewImplementation("Simplicity")	-- Let the magic begin!
@@ -65,14 +66,13 @@ function Simplicity:OnInit()
 		bank:Hide() -- Hide at the beginning
 end
 
--- Main bag will be toggled automatically on opening,
+-- Main bag will be toggled automatically at opening (actually it's always shown)
+-- because it just follows the state of the Implementation
 -- but the bank frame needs special treatment
-function Simplicity:OnOpen()
-	if(self:AtBank()) then
-		self:GetContainer("Bank"):Show()
-	end
+function Simplicity:OnBankOpened()
+	self:GetContainer("Bank"):Show()
 end
 
-function Simplicity:OnClose()
+function Simplicity:OnBankClosed()
 	self:GetContainer("Bank"):Hide()
 end
