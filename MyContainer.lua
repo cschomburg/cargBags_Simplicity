@@ -105,4 +105,11 @@ function MyContainer:OnCreate(name, settings)
 	-- If we specify a frame as an optional arg #2, then this frame
 	-- shows the search on click at its own place
 	local search = self:SpawnPlugin("SearchBar", infoFrame)
+	-- search.isGlobal = true -- This would make the search apply to all containers instead of just this one
+
+	-- if a highlight-function is provided, the items are styled as you define it
+	-- otherwise they are hidden completely
+	-- search.HighlightFunction = function(button, match)
+	-- 	button:SetAlpha(match and 1 or 0.1)
+	-- end
 end
