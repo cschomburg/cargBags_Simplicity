@@ -28,7 +28,7 @@
 local Simplicity = cargBags:GetImplementation("Simplicity")
 
 -- And our ItemButton-prototype
-local MyButton = Simplicity:GetItemButtonPrototype()
+local MyButton = Simplicity:GetButtonPrototype()
 
 --[[
 	Rather empty here, isn't it?
