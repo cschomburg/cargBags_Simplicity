@@ -93,6 +93,19 @@ function MyContainer:OnCreate(name, settings)
 	local tagDisplay = self:SpawnPlugin("TagDisplay", "[currencies] [ammo] [money]", infoFrame, nil, "NumberFontNormal")
 	tagDisplay:SetPoint("RIGHT", infoFrame, "RIGHT", -10, 0)
 
+	-- Plugin: BagBar
+	-- Creates a collection of buttons for your bags
+	-- The buttons can be positioned with the same :LayoutButtons() as the above ItemButtons (don't forget to update size!)
+	local bagBar = self:SpawnPlugin("BagBar", "bags")
+	bagBar:SetSize(bagBar:LayoutButtons("grid", 1))
+	bagBar:SetScale(0.75)
+
+	if(name == "Bank") then
+		bagBar:SetPoint("TOPLEFT", self, "TOPRIGHT", 5, -5)
+	else
+		bagBar:SetPoint("TOPRIGHT", self, "TOPLEFT", -5, -5)
+	end
+
 	-- Plugin: Money
 	-- Creates a standard Money-display
 	-- (deprecated in favor of the tagDisplay)
