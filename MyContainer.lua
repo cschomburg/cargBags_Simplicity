@@ -91,7 +91,8 @@ function MyContainer:OnCreate(name, settings)
 	space.bags = cargBags:ParseBags(settings.Bags) -- Temporary until I find a better solution
 
 	-- This one shows currencies, ammo and - most important - money!
-	local tagDisplay = self:SpawnPlugin("TagDisplay", "[currencies] [ammo] [money]", infoFrame, nil, "NumberFontNormal")
+	local tagDisplay = self:SpawnPlugin("TagDisplay", "[currencies] [ammo] [money]", infoFrame)
+	tagDisplay:SetFontObject("NumberFontNormal")
 	tagDisplay:SetPoint("RIGHT", infoFrame, "RIGHT", -10, 0)
 
 	-- Plugin: BagBar
