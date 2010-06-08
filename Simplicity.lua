@@ -1,23 +1,33 @@
 --[[
-	Class: Implementation
-		Serves as the core for your cargBags layout
+	Advanced users:
+		If you like, you can embed the cargBags2-framework in your Implementation,
+		serving as your personal bag-addon. This enables you to remove
+		unneeded core-plugins/mixins, but could be more complicated.
 
-	attributes:
+	Class: Implementation
+		Serves as the core for your cargBags layout.
+
+	Attributes:
 		.contByID - indexed table of all containers
-		.contByName - containers by name
-		.buttons - bagSlot-indexed table of all buttons
-	functions:
+		.contByName - containers by name, but the preferred way is to use :GetContainer(name)
+		.buttons - bagSlot-indexed table of all buttons - see cargBags/base/core.lua @ cargBags:ToBagSlot(bagID, slotID)
+
+	Functions:
 		container = :GetContainer(name) - fetches a container by its name (wrapper for .contByName)
 		protoContainer = :GetContainerPrototype(name) - fetches a Container prototype by name or the default one (basis for all Containers)
-		protoButton = :GetItemButtonPrototype() - fetches the ItemButton prototype (basis for all ItemButtons)
+		protoButton = :GetButtonPrototype() - fetches the ItemButton prototype (basis for all ItemButtons)
+		:SetDefaultButtonPrototype(name) - you only need this if you have multiple ItemButton-classes
 		:RegisterBlizzard() - Overwrite Blizzard functions for toggling bags
+		:RegisterCallback(event, key, func) - The preferred way to handle events for plugins, they will be called func(key)
 		:GetButton(bagID, slotID) - Gets a button from the storage
 		:AtBank() - Returns whether the bank data is available
-	callbacks:
-		:OnInit(...) - called when the implementation is opened the first time
+		item = :GetItemInfo(bagID, slotID) - Fetches all available information for one item into a table
+
+	Callbacks:
+		:OnInit(...) - called when the implementation is opened the first time, spawn your bags here
 		:OnOpen() - called when it is shown
 		:OnClose() - called when it is hidden
-		:OnBankOpened() - called when the user visits a bank
+		:OnBankOpened() - called when the user visits a bank, good for toggling bank frame
 		:OnBankClosed() - called when the user finished visiting the bank
 ]]
 

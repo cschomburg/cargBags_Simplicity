@@ -2,10 +2,15 @@
 	Class: Container
 		Serves as a base for all containers/bags
 
-	attributes:
+	Attributes:
 		.implementation - The parent implementation
-		.buttons - indexed table of all contained buttons
-	callbacks:
+		.buttons - indexed table of all contained ItemButtons
+
+	Functions:
+		:ScheduleContentCallback() - Update the layout on the next OnUpdate
+		:ApplyToButtons(func, ...) - Apply this function to all buttons, calling func(button, ...)
+
+	Callbacks:
 		:OnCreate(...) - called when a container is created, arguments passed from :New(name, ...)
 		:OnContentsChanged() - called when a button is added or removed, mostly used to update the layout
 		:OnBagUpdate(bagID, slotID) - called every BAG_UPDATE
@@ -106,14 +111,6 @@ function MyContainer:OnCreate(name, settings)
 	else
 		bagBar:SetPoint("TOPRIGHT", self, "TOPLEFT", -5, -5)
 	end
-
-	-- Plugin: Money
-	-- Creates a standard Money-display
-	-- (deprecated in favor of the tagDisplay)
-	-- We parent it to the infoFrame, because of the toggleable search bar below!
-	-- Making it short in one line, because we don't need more options
-	-- By the way, cargBags stores all instances of a plugin in the container by their name, so it's also in self.Money
-	-- self:SpawnPlugin("Money", infoFrame):SetPoint("RIGHT")
 
 	-- Plugin: SearchBar
 	-- If we specify a frame as an optional arg #2, then this frame
