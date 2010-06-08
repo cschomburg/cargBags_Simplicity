@@ -63,13 +63,11 @@ function MyContainer:OnCreate(name, settings)
 	if(settings.Movable) then
 		self:SetMovable(true)
 		self:RegisterForClicks("LeftButton", "RightButton");
-	    self:SetScript("OnMouseDown", function() 
-	        if(IsAltKeyDown()) then 
-	            self:ClearAllPoints() 
-	            self:StartMoving() 
-	        end 
+	    self:SetScript("OnMouseDown", function()
+	    	self:ClearAllPoints() 
+			self:StartMoving() 
 	    end)
-	    self:SetScript("OnMouseUp",  self.StopMovingOrSizing)
+		self:SetScript("OnMouseUp",  self.StopMovingOrSizing)
 	end
 
 	settings.Columns = settings.Columns or 8
@@ -83,18 +81,16 @@ function MyContainer:OnCreate(name, settings)
 	infoFrame:SetPoint("TOPRIGHT", -10, -3)
 	infoFrame:SetHeight(32)
 
-	-- Plugin: SpaceText
-	-- Creates a space-fontstring - it's an extension of :SpawnPlugin("Space", frame, bags) which transforms a frame into a space-updater
-	-- You can overwrite the update-routine with :UpdateSpace(free, max) or use the callback :OnUpdateSpace(free, max)
-	-- The settings.Bags thing just holds the bags which are included in the count, see Simplicity.lua
-	local space = self:SpawnPlugin("SpaceText", "[free]/[max] free", settings.Bags, infoFrame)
-	space:SetFont("Interface\\AddOns\\cargBags_Simplicity\\media\\cambriai.ttf", 16)
-	space:SetPoint("LEFT", infoFrame, "LEFT")
-
 	-- Plugin: TagDisplay
 	-- Creates a font string which is fomatted according to different tags
 	-- Possible: [currencies], [currency:id] [money], [item:name], [item:id], [shards], [ammo], [space:free/max/used]
 	-- You can provide your own tags in tagDisplay.tags[tagName] = function(self, arg1) end
+	local space = self:SpawnPlugin("TagDisplay", "[space:free/max] free", infoFrame)
+	space:SetFont("Interface\\AddOns\\cargBags_Simplicity\\media\\cambriai.ttf", 16) -- Yay, custom font
+	space:SetPoint("LEFT", infoFrame, "LEFT")
+	space.bags = cargBags:ParseBags(settings.Bags) -- Temporary until I find a better solution
+
+	-- This one shows currencies, ammo and - most important - money!
 	local tagDisplay = self:SpawnPlugin("TagDisplay", "[currencies] [ammo] [money]", infoFrame, nil, "NumberFontNormal")
 	tagDisplay:SetPoint("RIGHT", infoFrame, "RIGHT", -10, 0)
 
@@ -102,10 +98,11 @@ function MyContainer:OnCreate(name, settings)
 	-- Creates a collection of buttons for your bags
 	-- The buttons can be positioned with the same :LayoutButtons() as the above ItemButtons (don't forget to update size!)
 	-- You want to style the buttons? No problem! Fetch their class via Implementation:GetClass("BagButton")!
-	local bagBar = self:SpawnPlugin("BagBar", name == "Bank" and "bank" or "bags")
+	local bagBar = self:SpawnPlugin("BagBar", settings.Bags)
 	bagBar:SetSize(bagBar:LayoutButtons("grid", 1))
 	bagBar:SetScale(0.75)
 
+	-- Bank goes right, inventory goes left
 	if(name == "Bank") then
 		bagBar:SetPoint("TOPLEFT", self, "TOPRIGHT", 5, -5)
 	else
