@@ -98,7 +98,7 @@ function MyContainer:OnCreate(name, settings)
 	-- Plugin: BagBar
 	-- Creates a collection of buttons for your bags
 	-- The buttons can be positioned with the same :LayoutButtons() as the above ItemButtons (don't forget to update size!)
-	-- You want to style the buttons? No problem! Fetch their class via Implementation:GetClass("BagButton")!
+	-- You want to style the buttons? No problem! Fetch their class via Implementation:GetClass("BagButton", true, "BagButton")!
 	local bagBar = self:SpawnPlugin("BagBar", settings.Bags)
 	bagBar:SetSize(bagBar:LayoutButtons("grid", 1))
 	bagBar:SetScale(0.75)
