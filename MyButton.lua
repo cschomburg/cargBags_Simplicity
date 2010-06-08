@@ -43,8 +43,8 @@
 
 local Simplicity = cargBags:GetImplementation("Simplicity")
 
--- And our ItemButton-prototype
-local MyButton = Simplicity:GetButtonPrototype()
+-- And our ItemButton-class
+local MyButton = Simplicity:GetButtonClass()
 
 -- Yep, we don't do much here, it's just for reference
 -- so that YOU can extend on it!

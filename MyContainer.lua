@@ -21,8 +21,8 @@
 -- Fetch our implementation
 local Simplicity = cargBags:GetImplementation("Simplicity")
 
--- Fetch our container prototype that serves as a basis for all our containers/bags
-local MyContainer = Simplicity:GetContainerPrototype()
+-- Fetch our container class that serves as a basis for all our containers/bags
+local MyContainer = Simplicity:GetContainerClass()
 
 -- OnContentsChanged executes every time the layout needs to be changed
 function MyContainer:OnContentsChanged()
@@ -101,7 +101,7 @@ function MyContainer:OnCreate(name, settings)
 	-- Plugin: BagBar
 	-- Creates a collection of buttons for your bags
 	-- The buttons can be positioned with the same :LayoutButtons() as the above ItemButtons (don't forget to update size!)
-	-- You want to style the buttons? No problem! Fetch their prototype via Implementation:GetClass("BagButton")!
+	-- You want to style the buttons? No problem! Fetch their class via Implementation:GetClass("BagButton")!
 	local bagBar = self:SpawnPlugin("BagBar", name == "Bank" and "bank" or "bags")
 	bagBar:SetSize(bagBar:LayoutButtons("grid", 1))
 	bagBar:SetScale(0.75)

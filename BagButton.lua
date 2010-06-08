@@ -22,6 +22,7 @@
 ]]
 local Simplicity = cargBags:GetImplementation("Simplicity")
 
+-- It's a little bit different here, because we need to create it if it doesn't exist
 local BagButton = Simplicity:GetClass("BagButton", true, "BagButton")
 
 -- We color the CheckedTexture golden, not bright yellow

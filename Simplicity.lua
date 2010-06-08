@@ -14,9 +14,9 @@
 
 	Functions:
 		container = :GetContainer(name) - fetches a container by its name (wrapper for .contByName)
-		protoContainer = :GetContainerPrototype(name) - fetches a Container prototype by name or the default one (basis for all Containers)
-		protoButton = :GetButtonPrototype() - fetches the ItemButton prototype (basis for all ItemButtons)
-		:SetDefaultButtonPrototype(name) - you only need this if you have multiple ItemButton-classes
+		Container = :GetContainerClass(name) - fetches a Container class by name or the default one (basis for all Containers)
+		Button = :GetItemButtonClass() - fetches the ItemButton class (basis for all ItemButtons)
+		:SetDefaultItemButtonClass(name) - you only need this if you have multiple ItemButton-classes
 		:RegisterBlizzard() - Overwrite Blizzard functions for toggling bags
 		:RegisterCallback(event, key, func) - The preferred way to handle events for plugins, they will be called func(key)
 		:GetButton(bagID, slotID) - Gets a button from the storage
@@ -49,12 +49,12 @@ function Simplicity:OnInit()
 	local hideJunk =		function(item) return not item.rarity or item.rarity > 0 end
 	local hideEmpty =		function(item) return item.texture ~= nil end
 
-	-- This fetches our container prototype, it is styled in MyContainer.lua
-	-- You can also create multiple prototypes by providing a name as arg #1, (no name actually means "Default")
+	-- This fetches our container classes, it is styled in MyContainer.lua
+	-- You can also create multiple prototypes by providing a name as arg #1, (no name actually means "", default)
 	-- e.g. one for Bank/Bags with plugins and one simple one for additional bags/keyring
-	local MyContainer = Simplicity:GetContainerPrototype()
+	local MyContainer = Simplicity:GetContainerClass()
 
-	-- The settings-table passed in the :New() function is defined by the layout and fully optional, see MyContainer.lua
+	-- The settings-table passed in the :New() function is defined by your layout and fully optional, see MyContainer.lua
 
 	-- Bagpack
 	local main = MyContainer:New("Main", {
