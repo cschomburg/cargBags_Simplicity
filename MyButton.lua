@@ -37,7 +37,7 @@
 
 	Did you know?
 		You can create fake ItemButtons which are not used by cargBags by using
-		ItemButton:Create("ItemButtonTemplate"). These could come in handy if you
+		ItemButton:Create(). These could come in handy if you
 		want to hide all empty slots, but maybe still need a drop-target.
 ]]
 
@@ -45,6 +45,10 @@ local Simplicity = cargBags:GetImplementation("Simplicity")
 
 -- And our ItemButton-class
 local MyButton = Simplicity:GetItemButtonClass()
+
+-- Setting a Scaffold, they create fontstrings/icons for our ItemButton
+-- Optional, you could create your own in :OnCreate()
+MyButton:Scaffold("Blizzard") -- telling cargBags to use the default Blizz-templates
 
 -- Yep, we don't do much here, it's just for reference
 -- so that YOU can extend on it!

@@ -38,6 +38,8 @@ Simplicity:RegisterBlizzard() -- This registers the frame for use with BLizzard'
 -- normally this happens on the first opening of the containers.
 function Simplicity:OnInit()
 
+	self:SetFirstInterface("Default")
+
 	-- The filters control which items go into which container
 	local INVERTED = -1 -- with inverted filters (using -1), everything goes into this bag when the filter returns false
 
@@ -52,7 +54,7 @@ function Simplicity:OnInit()
 	-- This fetches our container classes, it is styled in MyContainer.lua
 	-- You can also create multiple prototypes by providing a name as arg #1, (no name actually means "", default)
 	-- e.g. one for Bank/Bags with plugins and one simple one for additional bags/keyring
-	local MyContainer = Simplicity:GetContainerClass()
+	local MyContainer = self:GetContainerClass()
 
 	-- The settings-table passed in the :New() function is defined by your layout and fully optional, see MyContainer.lua
 
@@ -74,6 +76,21 @@ function Simplicity:OnInit()
 		bank:SetFilter(onlyBank, true) -- Take only items from the bank frame
 		bank:SetPoint("LEFT", 5, 0) -- Place at left side of UI
 		bank:Hide() -- Hide at the beginning
+
+	--[[
+		PRO TIP
+			You are just sorting the items into different bags and
+			dont't make use of the extensive filtering system?
+
+			Switch the Sieve from "filter.lua" to "bags.lua" by commenting/uncommenting
+			these entries in your cargBags embeds.xml.
+
+			This disables the :SetFilter()-functions and replaces them by :SetBags(bagType).
+			Use it like:
+				Container:SetBags("backpack+bags")
+				Container:SetBags("0-4")
+				Container:SetBags( { 0, 1, 2, 3, 4 } )
+	]]
 end
 
 -- Main bag will be toggled automatically at opening (actually it's always shown)
