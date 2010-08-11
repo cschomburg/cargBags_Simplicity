@@ -1,7 +1,7 @@
 ## Interface: 30300
 ## Title: cargBags_Simplicity
 ## Author: Cargor
-## Version: 2.1-beta
+## Version: 2.1
 ## X-eMail: xconstruct@gmail.com
 ## X-Website: http://www.xconstruct.net
 ## Notes: Simple all-in-one inventory
