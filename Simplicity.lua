@@ -76,18 +76,27 @@ function Simplicity:OnInit()
 		bank:Hide() -- Hide at the beginning
 
 	--[[
-		PRO TIP
+		PRO TIP: Extended Filters
+			If you have a lot of categories, you may can avoid writing
+			lots of additional filter functions by passing an argument to them.
+
+			Define a filter like
+				local byType = function(item, myType) return item.type == myType
+
+			And then use it:
+				WeaponContainer:SetExtendedFilter(byType, "Weapon")
+				ConsumablesContainer:SetExtendedFilter(byType, "Consumables")
+	]]
+
+	--[[
+		PRO TIP: Simple Bags Sieve
 			You are just sorting the items into different bags and
-			dont't make use of the extensive filtering system?
+			dont't make real use of the filtering system?
 
-			Switch the Sieve from "filter.lua" to "bags.lua" by commenting/uncommenting
-			these entries in your cargBags embeds.xml.
-
-			This disables the :SetFilter()-functions and replaces them by :SetBags(bagType).
-			Use it like:
+			Visit http://github.com/xconstruct/cargBags/wiki/Sieve-Bags
+			on information how to enable it, so you can use:
 				Container:SetBags("backpack+bags")
 				Container:SetBags("0-4")
-				Container:SetBags( { 0, 1, 2, 3, 4 } )
 	]]
 end
 
