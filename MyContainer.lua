@@ -116,9 +116,8 @@ function MyContainer:OnCreate(name, settings)
 	local search = self:SpawnPlugin("SearchBar", infoFrame)
 	-- search.isGlobal = true -- This would make the search apply to all containers instead of just this one
 
-	-- if a highlight-function is provided, the items are styled as you define it
-	-- otherwise they are hidden completely
-	-- search.HighlightFunction = function(button, match)
-	-- 	button:SetAlpha(match and 1 or 0.1)
-	-- end
+	-- the highlight function styles matched/unmatched buttons
+	search.HighlightFunction = function(button, match)
+	 	button:SetAlpha(match and 1 or 0.1)
+	end
 end
