@@ -41,6 +41,12 @@ function MyContainer:OnContentsChanged()
 	self:SetSize(width + 20, height + 46)
 end
 
+-- A highlight function styles the button if they match a certain condition
+-- e.g. searching for buttons / hovering the BagBar for a specific bag
+local function highlightFunction(button, match)
+	button:SetAlpha(match and 1 or 0.1)
+end
+
 -- OnCreate is called every time a new container is created (you guessed that, right?)
 -- The 'settings'-variable is solely passed from your :New()-function and thus independent from the cargBags-core
 function MyContainer:OnCreate(name, settings)
@@ -98,10 +104,12 @@ function MyContainer:OnCreate(name, settings)
 	-- Plugin: BagBar
 	-- Creates a collection of buttons for your bags
 	-- The buttons can be positioned with the same :LayoutButtons() as the above ItemButtons (don't forget to update size!)
-	-- You want to style the buttons? No problem! Fetch their class via Implementation:GetClass("BagButton", true, "BagButton")!
+	-- You want to style the buttons? No problem! Fetch their class via Implementation:GetBagButtonClass()!
 	local bagBar = self:SpawnPlugin("BagBar", settings.Bags)
 	bagBar:SetSize(bagBar:LayoutButtons("grid", 1))
 	bagBar:SetScale(0.75)
+	bagBar.highlightFunction = highlightFunction -- from above, optional, used when hovering over bag buttons
+	bagBar.isGlobal = nil -- This would make the hover-effect apply to all containers instead of the current one
 
 	-- Bank goes right, inventory goes left
 	if(name == "Bank") then
@@ -112,12 +120,8 @@ function MyContainer:OnCreate(name, settings)
 
 	-- Plugin: SearchBar
 	-- If we specify a frame as an optional arg #2, then this frame
-	-- shows the search on click at its own place
+	-- shows the search onClick at its own place
 	local search = self:SpawnPlugin("SearchBar", infoFrame)
-	-- search.isGlobal = true -- This would make the search apply to all containers instead of just this one
-
-	-- the highlight function styles matched/unmatched buttons
-	search.HighlightFunction = function(button, match)
-	 	button:SetAlpha(match and 1 or 0.1)
-	end
+	search.highlightFunction = highlightFunction -- same as above, only for search
+	search.isGlobal = nil -- This would make the search apply to all containers instead of just this one
 end

@@ -21,9 +21,7 @@
 		:OnUpdate()			called when the button was updated
 ]]
 local Simplicity = cargBags:GetImplementation("Simplicity")
-
--- It's a little bit different here, because we need to create it if it doesn't exist
-local BagButton = Simplicity:GetClass("BagButton", true, "BagButton")
+local BagButton = Simplicity:GetBagButtonClass()
 
 -- We color the CheckedTexture golden, not bright yellow
 function BagButton:OnCreate()
