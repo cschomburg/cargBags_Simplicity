@@ -148,11 +148,8 @@ function Button_SetMode(self, arg1)
 	currentSet = set
 	self.container:ChainFilters(currentSet, true)
 
-	-- Update our container if visible
 
-	if(self.container:IsVisible()) then
-		self.container.implementation:OnEvent("BAG_UPDATE")
-	end
+	self.container.implementation:UpdateAll()
 end
 
 --[[
