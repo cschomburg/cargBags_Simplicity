@@ -110,7 +110,7 @@ function MyContainer:OnCreate(name, settings)
 	bagBar:SetScale(0.75)
 	bagBar.highlightFunction = highlightFunction -- from above, optional, used when hovering over bag buttons
 	bagBar.isGlobal = nil -- This would make the hover-effect apply to all containers instead of the current one
-	bagBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 15, -4)
+	bagBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 60, -4)
 
 	-- Plugin: SearchBar
 	-- If we specify a frame as an optional arg #2, then this frame
@@ -118,4 +118,10 @@ function MyContainer:OnCreate(name, settings)
 	local search = self:SpawnPlugin("SearchBar", infoFrame)
 	search.highlightFunction = highlightFunction -- same as above, only for search
 	search.isGlobal = nil -- This would make the search apply to all containers instead of just this one
+
+	-- Plugin: FilterDropDown [CUSTOM]
+	-- Custom plugin of Simplicity, see FilterDropDown.lua
+	-- Provides a dropdown of special filters modes
+	local button = self:SpawnPlugin("FilterDropDown")
+	button:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 15, -8)
 end
