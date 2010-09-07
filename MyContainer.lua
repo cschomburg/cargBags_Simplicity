@@ -106,17 +106,11 @@ function MyContainer:OnCreate(name, settings)
 	-- The buttons can be positioned with the same :LayoutButtons() as the above ItemButtons (don't forget to update size!)
 	-- You want to style the buttons? No problem! Fetch their class via Implementation:GetBagButtonClass()!
 	local bagBar = self:SpawnPlugin("BagBar", settings.Bags)
-	bagBar:SetSize(bagBar:LayoutButtons("grid", 1))
+	bagBar:SetSize(bagBar:LayoutButtons("grid", 10))
 	bagBar:SetScale(0.75)
 	bagBar.highlightFunction = highlightFunction -- from above, optional, used when hovering over bag buttons
 	bagBar.isGlobal = nil -- This would make the hover-effect apply to all containers instead of the current one
-
-	-- Bank goes right, inventory goes left
-	if(name == "Bank") then
-		bagBar:SetPoint("TOPLEFT", self, "TOPRIGHT", 5, -5)
-	else
-		bagBar:SetPoint("TOPRIGHT", self, "TOPLEFT", -5, -5)
-	end
+	bagBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 15, -4)
 
 	-- Plugin: SearchBar
 	-- If we specify a frame as an optional arg #2, then this frame
