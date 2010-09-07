@@ -50,5 +50,10 @@ local MyButton = Simplicity:GetItemButtonClass()
 -- If you don't use a scaffold, you have to write your own ItemButton:Update() function
 MyButton:Scaffold("Default") -- we use the default one
 
+function MyButton:OnUpdate(item)
+	-- fade empty slots
+	self.Border:SetAlpha(item.texture and 1 or 0.3)
+end
+
 -- Yep, we don't do much here, it's just for reference
 -- so that YOU can extend on it!

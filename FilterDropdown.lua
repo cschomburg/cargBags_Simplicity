@@ -23,6 +23,13 @@ local L = cargBags:GetLocalizedTypes()
 local function byType(item, type) return item.type == type end
 local function onlyJunk(item) return item.rarity == 0 end
 local function onlyBoE(item) return item.bindOn == "equip" end
+local function onlyCombatItems(item)
+	return item.type == L.Consumable
+		or (item.type == L.Weapon and item.subType ~= L['Fishing Poles'])
+		or item.subType == L.Explosives
+		or item.subType == L.Devices
+		or (item.isQuestItem and item.isActive)
+end
 
 --[[
 	Modes
@@ -65,6 +72,13 @@ boe.name = "BoE Items"
 boe:Set(onlyBoE, true)
 table.insert(modes, boe)
 
+local combatItems = FilterSet:New()
+combatItems.name = "Combat Items"
+combatItems:Set(onlyCombatItems, true)
+table.insert(modes, combatItems)
+
+modes.default = noFilter
+
 --[[
 	DropDown
 ]]
@@ -74,19 +88,7 @@ local dropdown, currentButton, currentSet
 -- Set a special mode when a dropdown entry was clicked
 local function DropDownEntry_OnClick(self)
 	UIDropDownMenu_SetSelectedValue(dropdown, self.value)
-
-	-- Clear the previous set
-	if(currentSet) then
-		currentButton.container:ChainFilters(currentSet, nil)
-	end
-
-	-- Set the new one
-	currentSet = self.value
-	currentButton.container:ChainFilters(currentSet, true)
-
-	-- Update our container
-	currentButton.container.implementation:OnEvent("BAG_UPDATE")
-	currentButton = nil
+	currentButton:SetMode(self.value)
 end
 
 -- Updates the entries of the dropdown
@@ -104,7 +106,7 @@ local function DropDown_Update(self)
 	end
 end
 
--- When the 'Filters'-Button was clicked,
+-- When the 'Modes'-Button was clicked,
 -- open the dropdown
 local function Button_OnClick(self)
 	if(not dropdown) then
@@ -122,6 +124,35 @@ local function Button_OnClick(self)
 	local y = self:GetBottom() >= GetScreenHeight()/2 and "TOP" or "BOTTOM"
 	local x = self:GetRight() >= GetScreenWidth()/2 and "LEFT" or "RIGHT"
 	ToggleDropDownMenu(1, nil, dropdown, self, 0, 0)
+end
+
+function Button_SetMode(self, arg1)
+	local set = arg1
+
+	-- If arg1 is a string, select by name
+	if(type(arg1) == "string") then
+		for i, mode in ipairs(modes) do
+			if(mode.name == arg1) then
+				set = mode
+			end
+		end
+	end
+	if(not arg1.__index == FilterSet) then return end
+
+	-- Clear the previous set
+	if(currentSet) then
+		self.container:ChainFilters(currentSet, nil)
+	end
+
+	-- Set the new one
+	currentSet = set
+	self.container:ChainFilters(currentSet, true)
+
+	-- Update our container if visible
+
+	if(self.container:IsVisible()) then
+		self.container.implementation:OnEvent("BAG_UPDATE")
+	end
 end
 
 --[[
@@ -149,6 +180,8 @@ cargBags:RegisterPlugin("FilterDropDown", function(self)
 	button:SetWidth(24)
 	button:SetAlpha(0.8)
 	button:SetScript("OnClick", Button_OnClick)
+
+	button.SetMode = Button_SetMode
 
 	return button
 end)
