@@ -27,7 +27,7 @@ local visPercent = 0.5 -- we want to hide a part of the button
 
 function BagButton:OnCreate()
 	-- We color the CheckedTexture golden, not bright yellow
-	self:GetCheckedTexture():SetVertexColor(1, 0.8, 0, 0.8)
+	self:GetCheckedTexture():SetVertexColor(1, 0.8, 0, 0.6)
 
 	-- now update height / texture coords based on the visible part
 	self:SetHeight(visPercent * 37)
