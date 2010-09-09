@@ -11,7 +11,9 @@
 ]]
 
 local addon, ns = ...
-local FilterSet = cargBags.classes.FilterSet
+local cargBags = ns.cargBags
+
+local FilterSet = cargBags:GetClass("FilterSet")
 local L = cargBags:GetLocalizedTypes()
 
 --[[
@@ -149,7 +151,7 @@ function Button_SetMode(self, arg1)
 	self.container:ChainFilters(currentSet, true)
 
 
-	self.container.implementation:UpdateAll()
+	cargBags:UpdateAll()
 end
 
 --[[

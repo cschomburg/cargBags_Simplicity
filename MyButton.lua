@@ -39,10 +39,8 @@
 		want to hide all empty slots, but maybe still need a drop-target.
 ]]
 
-local Simplicity = cargBags:GetImplementation("Simplicity")
-
 -- And our ItemButton-class
-local MyButton = Simplicity:GetItemButtonClass()
+local MyButton = Simplicity:GetClass("ItemButton")
 
 -- Setting a Scaffold, they provide default functions for updating fontstrings/icons
 -- e.g. the scaffold implements ItemButton:Update() and takes over most updating

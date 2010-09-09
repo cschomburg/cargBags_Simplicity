@@ -31,8 +31,10 @@
 		:OnBankClosed() - called when the user finished visiting the bank
 ]]
 
-local Simplicity = cargBags:NewImplementation("Simplicity")	-- Let the magic begin!
-Simplicity:RegisterBlizzard() -- This registers the frame for use with BLizzard's ToggleBag()-functions
+local addon, ns = ...
+local Simplicity = ns.cargBags:Setup("Simplicity") -- actually Simplicity == cargBags
+
+Simplicity:ReplaceBlizzard(true) -- This registers the frame for use with BLizzard's ToggleBag()-functions
 
 -- This function is called when the implementation inits,
 -- normally this happens on the first opening of the containers.
@@ -50,9 +52,9 @@ function Simplicity:OnInit()
 	local hideEmpty =		function(item) return item.texture ~= nil end
 
 	-- This fetches our container classes, it is styled in MyContainer.lua
-	-- You can also create multiple prototypes by providing a name as arg #1, (no name actually means "", default)
+	-- You can also create multiple prototypes by providing a name as arg #2, (no name actually means "", default)
 	-- e.g. one for Bank/Bags with plugins and one simple one for additional bags/keyring
-	local MyContainer = self:GetContainerClass()
+	local MyContainer = self:GetClass("Container")
 
 	-- The settings-table passed in the :New() function is defined by your layout and fully optional, see MyContainer.lua
 

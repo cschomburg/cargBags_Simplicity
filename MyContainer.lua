@@ -18,11 +18,8 @@
 		:OnButtonRemove(button) - called when a button is removed from this container
 ]]
 
--- Fetch our implementation
-local Simplicity = cargBags:GetImplementation("Simplicity")
-
 -- Fetch our container class that serves as a basis for all our containers/bags
-local MyContainer = Simplicity:GetContainerClass()
+local MyContainer = Simplicity:GetClass("Container")
 
 -- OnContentsChanged executes every time the layout needs to be changed
 function MyContainer:OnContentsChanged()
@@ -94,7 +91,7 @@ function MyContainer:OnCreate(name, settings)
 	local space = self:SpawnPlugin("TagDisplay", "[space:free/max] free", infoFrame)
 	space:SetFont("Interface\\AddOns\\cargBags_Simplicity\\media\\cambriai.ttf", 16) -- Yay, custom font
 	space:SetPoint("LEFT", infoFrame, "LEFT")
-	space.bags = cargBags:ParseBags(settings.Bags) -- Temporary until I find a better solution
+	space.bags = Simplicity:ParseBags(settings.Bags) -- Temporary until I find a better solution
 
 	-- This one shows currencies, ammo and - most important - money!
 	local tagDisplay = self:SpawnPlugin("TagDisplay", "[currencies] [ammo] [money]", infoFrame)

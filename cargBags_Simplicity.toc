@@ -5,7 +5,8 @@
 ## X-eMail: me@xconstruct.net
 ## X-Website: http://xconstruct.net
 ## Notes: Simple all-in-one inventory layout
-## RequiredDeps: cargBags
+
+cargBags\embed.xml
 
 Simplicity.lua
 MyButton.lua

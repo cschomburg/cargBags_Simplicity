@@ -20,8 +20,7 @@
 		:OnCreate(bagID)	called when the button was created
 		:OnUpdate()			called when the button was updated
 ]]
-local Simplicity = cargBags:GetImplementation("Simplicity")
-local BagButton = Simplicity:GetBagButtonClass()
+local BagButton = Simplicity:GetClass("BagButton")
 
 local visPercent = 0.5 -- we want to hide a part of the button
 
