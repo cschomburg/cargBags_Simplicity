@@ -32,13 +32,14 @@
 ]]
 
 local addon, ns = ...
-local Simplicity = ns.cargBags:Setup("Simplicity") -- actually Simplicity == cargBags
-
-Simplicity:ReplaceBlizzard(true) -- This registers the frame for use with BLizzard's ToggleBag()-functions
+local cargBags = ns.cargBags
+local Simplicity = cargBags:CreateImplementation("Simplicity")
+Simplicity:ReplaceBlizzard(true)
 
 -- This function is called when the implementation inits,
 -- normally this happens on the first opening of the containers.
 function Simplicity:OnInit()
+	self:SetSource("Default")
 
 	-- The filters control which items go into which container
 	local INVERTED = -1 -- with inverted filters (using -1), everything goes into this bag when the filter returns false

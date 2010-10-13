@@ -13,7 +13,7 @@
 local addon, ns = ...
 local cargBags = ns.cargBags
 
-local FilterSet = cargBags:GetClass("FilterSet")
+local FilterSet = cargBags.Class:Get("FilterSet")
 local L = cargBags:GetLocalizedTypes()
 
 --[[
@@ -160,7 +160,7 @@ end
 		a Spawn-function which returns the plugin
 ]]
 
-cargBags:RegisterPlugin("FilterDropDown", function(self)
+cargBags:Register("plugin", "FilterDropDown", function(self)
 	local button = CreateFrame("Button", nil, self)
 	button.container = self
 
