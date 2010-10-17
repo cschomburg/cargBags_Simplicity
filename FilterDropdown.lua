@@ -1,5 +1,5 @@
 --[[
-	This file extends the layout, but is not mandatory for your own.
+	This plugin extends the layout, but is not mandatory for your own.
 
 	It adds a button to the container where the user
 	can toggle between different 'filter modes'.
@@ -7,14 +7,14 @@
 	It gives a good introduction into various aspects of cargBags:
 	- Extended Filters and FilterSets
 	- Writing own plugins
-	- Locale table
+	- Using the Locale table
 ]]
 
 local addon, ns = ...
-local cargBags = ns.cargBags
+local Implementation = ns.cargBags
 
-local FilterSet = cargBags.Class:Get("FilterSet")
-local L = cargBags:GetLocalizedTypes()
+local FilterSet = Implementation.Class:Get("FilterSet")
+local L = Implementation:GetLocalizedTypes()
 
 --[[
 	Filters
@@ -151,7 +151,7 @@ function Button_SetMode(self, arg1)
 	self.container:ChainFilters(currentSet, true)
 
 
-	cargBags:UpdateAll()
+	Implementation:ForceUpdate()
 end
 
 --[[
@@ -160,7 +160,7 @@ end
 		a Spawn-function which returns the plugin
 ]]
 
-cargBags:Register("plugin", "FilterDropDown", function(self)
+Implementation:Register("plugin", "FilterDropDown", function(self)
 	local button = CreateFrame("Button", nil, self)
 	button.container = self
 

@@ -117,11 +117,9 @@ function MyContainer:OnCreate(name, settings)
 	-- Plugin: SearchBar
 	-- If we specify a frame as an optional arg #2, then this frame
 	-- shows the search onClick at its own place
-	if(Simplicity:Has("SearchBar")) then
-		local search = self:SpawnPlugin("SearchBar", infoFrame)
-		search.highlightFunction = highlightFunction -- same as above, only for search
-		search.isGlobal = nil -- This would make the search apply to all containers instead of just this one
-	end
+	local search = self:SpawnPlugin("SearchBar", infoFrame)
+	search.highlightFunction = highlightFunction -- same as above, only for search
+	search.isGlobal = nil -- This would make the search apply to all containers instead of just this one
 
 	-- Plugin: FilterDropDown [CUSTOM]
 	-- Custom plugin of Simplicity, see FilterDropDown.lua
