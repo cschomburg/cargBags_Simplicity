@@ -32,8 +32,7 @@
 ]]
 
 local addon, ns = ...
-local cargBags = ns.cargBags
-local Simplicity = cargBags:CreateImplementation("Simplicity")
+local Simplicity = ns.cargBags:Setup("Simplicity")
 Simplicity:ReplaceBlizzard(true)
 
 -- This function is called when the implementation inits,
@@ -77,6 +76,7 @@ function Simplicity:OnInit()
 		bank:SetFilter(onlyBank, true) -- Take only items from the bank frame
 		bank:SetPoint("LEFT", 5, 0) -- Place at left side of UI
 		bank:Hide() -- Hide at the beginning
+		self.bank = bank -- We need to toggle it later, so store it
 
 	--[[
 		PRO TIP: Extended Filters
@@ -107,9 +107,9 @@ end
 -- because it just follows the state of the Implementation
 -- but the bank frame needs special treatment
 function Simplicity:OnBankOpened()
-	self:GetContainer("Bank"):Show()
+	self.bank:Show()
 end
 
 function Simplicity:OnBankClosed()
-	self:GetContainer("Bank"):Hide()
+	self.bank:Hide()
 end

@@ -18,6 +18,9 @@
 		:OnButtonRemove(button) - called when a button is removed from this container
 ]]
 
+local addon, ns = ...
+local Simplicity = ns.cargBags
+
 -- Fetch our container class that serves as a basis for all our containers/bags
 local MyContainer = Simplicity:GetClass("Container")
 
@@ -88,15 +91,17 @@ function MyContainer:OnCreate(name, settings)
 	-- Creates a font string which is fomatted according to different tags
 	-- Possible: [currencies], [currency:id] [money], [item:name], [item:id], [shards], [ammo], [space:free/max/used]
 	-- You can provide your own tags in tagDisplay.tags[tagName] = function(self, arg1) end
-	local space = self:SpawnPlugin("TagDisplay", "[space:free/max] free", infoFrame)
-	space:SetFont("Interface\\AddOns\\cargBags_Simplicity\\media\\cambriai.ttf", 16) -- Yay, custom font
-	space:SetPoint("LEFT", infoFrame, "LEFT")
-	space.bags = Simplicity:ParseBags(settings.Bags) -- Temporary until I find a better solution
+	if(Simplicity:Has("TagDisplay")) then
+		local space = self:SpawnPlugin("TagDisplay", "[space:free/max] free", infoFrame)
+		space:SetFont("Interface\\AddOns\\cargBags_Simplicity\\media\\cambriai.ttf", 16) -- Yay, custom font
+		space:SetPoint("LEFT", infoFrame, "LEFT")
+		space.bags = Simplicity:ParseBags(settings.Bags) -- Temporary until I find a better solution
 
-	-- This one shows currencies, ammo and - most important - money!
-	local tagDisplay = self:SpawnPlugin("TagDisplay", "[currencies] [ammo] [money]", infoFrame)
-	tagDisplay:SetFontObject("NumberFontNormal")
-	tagDisplay:SetPoint("RIGHT", infoFrame, "RIGHT", -10, 0)
+		-- This one shows currencies, ammo and - most important - money!
+		local tagDisplay = self:SpawnPlugin("TagDisplay", "[currencies] [ammo] [money]", infoFrame)
+		tagDisplay:SetFontObject("NumberFontNormal")
+		tagDisplay:SetPoint("RIGHT", infoFrame, "RIGHT", -10, 0)
+	end
 
 	-- Plugin: BagBar
 	-- Creates a collection of buttons for your bags
@@ -112,13 +117,14 @@ function MyContainer:OnCreate(name, settings)
 	-- Plugin: SearchBar
 	-- If we specify a frame as an optional arg #2, then this frame
 	-- shows the search onClick at its own place
-	local search = self:SpawnPlugin("SearchBar", infoFrame)
-	search.highlightFunction = highlightFunction -- same as above, only for search
-	search.isGlobal = nil -- This would make the search apply to all containers instead of just this one
+	if(Simplicity:Has("SearchBar")) then
+		local search = self:SpawnPlugin("SearchBar", infoFrame)
+		search.highlightFunction = highlightFunction -- same as above, only for search
+		search.isGlobal = nil -- This would make the search apply to all containers instead of just this one
+	end
 
 	-- Plugin: FilterDropDown [CUSTOM]
 	-- Custom plugin of Simplicity, see FilterDropDown.lua
 	-- Provides a dropdown of special filters modes
-	local button = self:SpawnPlugin("FilterDropDown")
-	button:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 15, -8)
+	self:SpawnPlugin("FilterDropDown"):SetPoint("BOTTOMLEFT", self, "TOPLEFT", 15, -8)
 end
