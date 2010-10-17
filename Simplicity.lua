@@ -39,6 +39,7 @@ Simplicity:ReplaceBlizzard(true)
 -- normally this happens on the first opening of the containers.
 function Simplicity:OnInit()
 	self:SetSource("Default")
+	self:SetSieve("Filters")
 
 	-- The filters control which items go into which container
 	local INVERTED = -1 -- with inverted filters (using -1), everything goes into this bag when the filter returns false
