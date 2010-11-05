@@ -13,4 +13,4 @@ MyButton.lua
 MyContainer.lua
 BagButton.lua
 
-FilterDropDown.lua
+FilterDropDown.plugin.lua

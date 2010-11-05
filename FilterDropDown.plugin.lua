@@ -13,7 +13,7 @@
 local addon, ns = ...
 local Implementation = ns.cargBags
 
-local FilterSet = Implementation.Class:Get("FilterSet")
+local FilterSet = Implementation:Needs("Class", "FilterSet")
 local L = Implementation:GetLocalizedTypes()
 
 --[[

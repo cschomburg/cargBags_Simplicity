@@ -107,8 +107,8 @@ end
 -- Main bag will be toggled automatically at opening (actually it's always shown)
 -- because it just follows the state of the Implementation
 -- but the bank frame needs special treatment
-function Simplicity:OnSourceUpdate(name, state)
-	if(name == "bank") then
+function Simplicity:OnGroupState(group, state)
+	if(group == "bank") then
 		if(state) then
 			self:Open()
 			self.bank:Show()

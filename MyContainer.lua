@@ -91,17 +91,15 @@ function MyContainer:OnCreate(name, settings)
 	-- Creates a font string which is fomatted according to different tags
 	-- Possible: [currencies], [currency:id] [money], [item:name], [item:id], [shards], [ammo], [space:free/max/used]
 	-- You can provide your own tags in tagDisplay.tags[tagName] = function(self, arg1) end
-	if(Simplicity:Has("TagDisplay")) then
-		local space = self:SpawnPlugin("TagDisplay", "[space:free/max] free", infoFrame)
-		space:SetFont("Interface\\AddOns\\cargBags_Simplicity\\media\\cambriai.ttf", 16) -- Yay, custom font
-		space:SetPoint("LEFT", infoFrame, "LEFT")
-		space.bags = Simplicity:ParseBags(settings.Bags) -- Temporary until I find a better solution
+	local space = self:SpawnPlugin("TagDisplay", "[space:free/max] free", infoFrame)
+	space:SetFont("Interface\\AddOns\\cargBags_Simplicity\\media\\cambriai.ttf", 16) -- Yay, custom font
+	space:SetPoint("LEFT", infoFrame, "LEFT")
+	space.bags = Simplicity:ParseBags(settings.Bags) -- Temporary until I find a better solution
 
 		-- This one shows currencies, ammo and - most important - money!
-		local tagDisplay = self:SpawnPlugin("TagDisplay", "[currencies] [ammo] [money]", infoFrame)
-		tagDisplay:SetFontObject("NumberFontNormal")
-		tagDisplay:SetPoint("RIGHT", infoFrame, "RIGHT", -10, 0)
-	end
+	local tagDisplay = self:SpawnPlugin("TagDisplay", "[currencies] [money]", infoFrame)
+	tagDisplay:SetFontObject("NumberFontNormal")
+	tagDisplay:SetPoint("RIGHT", infoFrame, "RIGHT", -10, 0)
 
 	-- Plugin: BagBar
 	-- Creates a collection of buttons for your bags
