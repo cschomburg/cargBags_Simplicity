@@ -23,7 +23,7 @@ local L = Implementation:GetLocalizedTypes()
 ]]
 
 local function byType(item, type) return item.type == type end
-local function onlyJunk(item) return item.rarity == 0 end
+local function onlyJunk(item) return item.quality == 0 end
 local function onlyBoE(item) return item.bindOn == "equip" end
 local function onlyCombatItems(item)
 	return item.type == L.Consumable

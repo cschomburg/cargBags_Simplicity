@@ -10,7 +10,7 @@
 		.HighlightFunction	Controls how the itemButtons should be styled when hovering over the bag default: fade)
 
 	Child widgets:
-		.Icon				the IconTexture
+		.icon				the IconTexture
 		.Count				the Count-FontString
 		.Cooldown			the Cooldown-Frame
 		.Quest				the Quest-border
@@ -45,5 +45,5 @@ function BagButton:OnUpdate()
 	-- again clip textures in case they were updated
 	self:GetNormalTexture():SetTexCoord(0, 1, 0, visPercent)
 	self.Border:SetTexCoord(0, 1, 0, visPercent)
-	self.Icon:SetTexCoord(0, 1, 0, visPercent)
+	self.icon:SetTexCoord(0, 1, 0, visPercent)
 end

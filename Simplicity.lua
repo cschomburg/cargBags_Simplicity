@@ -47,9 +47,9 @@ function Simplicity:OnInit()
 	local onlyBags =		function(item) return item.bagID >= 0 and item.bagID <= 4 end
 	local onlyKeyring =		function(item) return item.bagID == -2 end
 	local onlyBank =		function(item) return item.bagID == -1 or item.bagID >= 5 and item.bagID <= 11 end
-	local onlyRareEpics =	function(item) return item.rarity and item.rarity > 3 end
-	local onlyEpics =		function(item) return item.rarity and item.rarity > 3 end
-	local hideJunk =		function(item) return not item.rarity or item.rarity > 0 end
+	local onlyRareEpics =	function(item) return item.quality and item.quality > 3 end
+	local onlyEpics =		function(item) return item.quality and item.quality > 3 end
+	local hideJunk =		function(item) return not item.quality or item.quality > 0 end
 	local hideEmpty =		function(item) return item.texture ~= nil end
 
 	-- This fetches our container classes, it is styled in MyContainer.lua
@@ -61,6 +61,7 @@ function Simplicity:OnInit()
 
 	-- Bagpack
 	local main = MyContainer:New("Main", {
+            Movable = true,
 			Columns = 8,
 			Scale = 1,
 			Bags = "backpack+bags",
@@ -70,6 +71,7 @@ function Simplicity:OnInit()
 
 	-- Bank frame and bank bags
 	local bank = MyContainer:New("Bank", {
+            Movable = true,
 			Columns = 12,
 			Scale = 1,
 			Bags = "bankframe+bank",

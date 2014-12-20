@@ -15,7 +15,7 @@
 			.bgTex - background texture (used when slot is empty)
 
 		Child widgets of "Default" scaffold:
-			.Icon
+			.icon
 			.Count
 			.Cooldown
 			.Quest
